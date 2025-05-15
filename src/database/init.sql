@@ -1,6 +1,6 @@
 
 -- Tabela de fornecedores
-CREATE TABLE fornecedores (
+CREATE TABLE IF NOT EXISTS fornecedores (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100),
   telefone VARCHAR(20),
@@ -15,7 +15,7 @@ INSERT INTO fornecedores (nome, telefone, email, endereco) VALUES
 ('Distribuidora de Laticínios', '924111222', 'contato@laticinios.co.ao', 'Av. Brasil, Lubango');
 
 -- Tabela de produtos
-CREATE TABLE produtos (
+CREATE TABLE IF NOT EXISTS produtos (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100),
   preco DECIMAL(10,2),
@@ -36,7 +36,7 @@ INSERT INTO produtos (nome, preco, categoria, descricao, unidade, fornecedor_id)
 ('Sal Refinado', 500, 'Temperos', 'Sal refinado iodado', 'Kg', 2);
 
 -- Tabela de estoque
-CREATE TABLE estoque (
+CREATE TABLE IF NOT EXISTS estoque (
   id INT PRIMARY KEY AUTO_INCREMENT,
   produto_id INT,
   quantidade INT,
@@ -56,7 +56,7 @@ INSERT INTO estoque (produto_id, quantidade, unidade, minimo, validade) VALUES
 (6, 100, 'Kg', 30, '2025-02-20');
 
 -- Tabela de clientes
-CREATE TABLE clientes (
+CREATE TABLE IF NOT EXISTS clientes (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100),
   telefone VARCHAR(20),
@@ -71,37 +71,38 @@ INSERT INTO clientes (nome, telefone, email, endereco) VALUES
 ('Ana Pereira', '945678901', 'ana@exemplo.co.ao', 'Rua das Palmeiras, 789, Benguela');
 
 -- Tabela de usuários
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS utilizadores (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100),
   email VARCHAR(100),
+  senha VARCHAR(255),
   cargo VARCHAR(50),
   status ENUM('ativo', 'inativo'),
-  data_criacao DATE
+  data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Inserir usuários
-INSERT INTO usuarios (nome, email, cargo, status, data_criacao) VALUES
-('Administrador', 'admin@armazem.co.ao', 'Gerente', 'ativo', CURDATE());
+INSERT INTO utilizadores (nome, email, senha, cargo, status) VALUES
+('Administrador', 'admin@armazem.co.ao', 'admin', 'Gerente', 'ativo');
 
 -- Tabela de vagas
-CREATE TABLE vagas (
+CREATE TABLE IF NOT EXISTS vagas (
   id INT PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(100),
   descricao TEXT,
   requisitos TEXT,
   salario DECIMAL(10,2),
   status ENUM('aberta', 'fechada'),
-  data_criacao DATE
+  data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Inserir vagas
-INSERT INTO vagas (titulo, descricao, requisitos, salario, status, data_criacao) VALUES
-('Repositor de Estoque', 'Organizar e repor mercadorias no armazém.', 'Ensino médio, disponibilidade física.', 80000, 'aberta', '2024-07-01'),
-('Motorista de Entrega', 'Fazer entregas para clientes.', 'Carta de condução profissional.', 100000, 'aberta', '2024-07-01');
+INSERT INTO vagas (titulo, descricao, requisitos, salario, status) VALUES
+('Repositor de Estoque', 'Organizar e repor mercadorias no armazém.', 'Ensino médio, disponibilidade física.', 80000, 'aberta'),
+('Motorista de Entrega', 'Fazer entregas para clientes.', 'Carta de condução profissional.', 100000, 'aberta');
 
 -- Tabela de candidaturas
-CREATE TABLE candidaturas (
+CREATE TABLE IF NOT EXISTS candidaturas (
   id INT PRIMARY KEY AUTO_INCREMENT,
   vaga_id INT,
   candidato_nome VARCHAR(100),
