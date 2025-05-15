@@ -1,16 +1,17 @@
 import { connection } from "../database/config.js";
 
-async function create({ nome, email, senha, perfil }) {
+async function create({ nome, email, senha, cargo, status }) {
   const query = `
-    INSERT INTO utilizadores (nome, email, senha, perfil) 
-    VALUES (?, ?, ?, ?);
+    INSERT INTO utilizadores (nome, email, senha, cargo, status) 
+    VALUES (?, ?, ?, ?, ?);
     `;
   try {
     const [result] = await connection.query(query, [
       nome,
       email,
       senha,
-      perfil,
+      cargo,
+      status,
     ]);
     return result;
   } catch (error) {
@@ -33,7 +34,7 @@ async function getAll() {
 async function getById(utilizadorId) {
   const query = `
       SELECT *  FROM utilizadores 
-      WHERE utilizador_id = ?;
+      WHERE id = ?;
       `;
   try {
     const [result] = await connection.query(query, [utilizadorId]);
@@ -43,17 +44,18 @@ async function getById(utilizadorId) {
   }
 }
 
-async function update(utilizadorId, nome, email, senha, perfil) {
+async function update(utilizadorId, nome, email, senha, cargo, status) {
   const query = `
-      UPDATE utilizadores SET nome = ?, email = ?, senha = ?, perfil = ?  
-      WHERE utilizador_id = ?;
+      UPDATE utilizadores SET nome = ?, email = ?, senha = ?, cargo = ?, status = ?  
+      WHERE id = ?;
       `;
   try {
     const [result] = await connection.query(query, [
       nome,
       email,
       senha,
-      perfil,
+      cargo,
+      status,
       utilizadorId,
     ]);
     return result;
@@ -65,7 +67,7 @@ async function update(utilizadorId, nome, email, senha, perfil) {
 async function deleteUtilizador(utilizadorId) {
   const query = `
       DELETE FROM utilizadores 
-      WHERE utilizador_id = ?;
+      WHERE id = ?;
       `;
   try {
     const [result] = await connection.query(query, [utilizadorId]);

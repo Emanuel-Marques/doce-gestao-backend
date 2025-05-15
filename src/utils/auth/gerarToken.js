@@ -8,7 +8,7 @@ const gerarToken = (utilizador) => {
     }
     const token = jwt.sign(
         {
-            data: { email: utilizador.email, nome: utilizador.nome, perfil: utilizador.perfil }
+            data: { email: utilizador.email, nome: utilizador.nome, cargo: utilizador.cargo }
         },
         secret, 
         jwtConfig

@@ -1,13 +1,13 @@
 import utilizadoresService from "./utilizadores.service.js";
 
 async function create(req, res) {
-  const { nome, email, senha, perfil } = req.body;
-  if (!nome || !email || !senha || !perfil) {
+  const { nome, email, senha, cargo, status } = req.body;
+  if (!nome || !email || !senha || !cargo || !status) {
     return res
       .status(400)
       .json({ message: "Todos os campos são obrigatórios!" });
   }
-  const utilizador = { nome, email, senha, perfil };
+  const utilizador = { nome, email, senha, cargo, status };
   const { insertId } = await utilizadoresService.create(utilizador);
   res.status(201).json({ insertId });
 }
@@ -35,9 +35,9 @@ async function getById(req, res) {
 
 async function update(req, res) {
   const { utilizadorId } = req.params;
-  const { nome, email, senha, perfil } = req.body;
+  const { nome, email, senha, cargo, status } = req.body;
 
-  if (!utilizadorId || Number.isNaN(utilizadorId) || !nome || !email || !senha || !perfil ) {
+  if (!utilizadorId || Number.isNaN(utilizadorId) || !nome || !email || !senha ||  !cargo || !status ) {
     return res.status(400).json({ message: "id ou campos inexistentes!" });
   }
 

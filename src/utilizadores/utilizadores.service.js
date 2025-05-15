@@ -8,7 +8,8 @@ async function create(utilizador) {
     nome: utilizador.nome,
     email: utilizador.email,
     senha: senhaEncriptada,
-    perfil: utilizador.perfil,
+    cargo: utilizador.cargo,
+    status: utilizador.status,
   };
 
   const result = await utilizadoresModel.create(utilizadorEncriptado);
@@ -25,14 +26,15 @@ async function getById(utilizadorId) {
   return result;
 }
 
-async function update(utilizadorId, nome, email, senha, perfil) {
+async function update(utilizadorId, nome, email, senha, cargo, status) {
   const senhaEncriptada = await encryptPassword(senha);
   const result = await utilizadoresModel.update(
     utilizadorId,
     nome,
     email,
     senhaEncriptada,
-    perfil
+    cargo,
+    status
   );
   return result;
 }
