@@ -17,7 +17,13 @@ async function create({ nome, preco, categoria, descricao, unidade, fornecedor_i
 }
 
 async function getAll() {
-  const query = `SELECT * FROM produtos;`;
+  const query = `
+    SELECT 
+      p.*, 
+      f.nome AS fornecedor_nome 
+    FROM produtos p
+    JOIN fornecedores f ON p.fornecedor_id = f.id;
+  `;
   const [result] = await connection.query(query);
   return result;
 }
