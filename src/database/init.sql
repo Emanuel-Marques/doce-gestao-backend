@@ -85,21 +85,25 @@ CREATE TABLE IF NOT EXISTS utilizadores (
 INSERT INTO utilizadores (nome, email, senha, cargo, status) VALUES
 ('Administrador', 'admin@armazem.co.ao', 'admin', 'Gerente', 'ativo');
 
--- Tabela de vagas
 CREATE TABLE IF NOT EXISTS vagas (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  titulo VARCHAR(100),
-  descricao TEXT,
-  requisitos TEXT,
-  salario DECIMAL(10,2),
-  status ENUM('aberta', 'fechada'),
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(100) NOT NULL,
+  descricao TEXT NOT NULL,
+  requisitos TEXT NOT NULL,
+  responsabilidades TEXT,
+  departamento VARCHAR(100),
+  localidade VARCHAR(100),
+  tipo ENUM('tempo_integral', 'remoto', 'hibrido') DEFAULT 'tempo_integral',
+  salario DECIMAL(10,2) NOT NULL,
+  status ENUM('aberta', 'fechada') DEFAULT 'aberta',
   data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+
 -- Inserir vagas
-INSERT INTO vagas (titulo, descricao, requisitos, salario, status) VALUES
-('Repositor de Estoque', 'Organizar e repor mercadorias no armazém.', 'Ensino médio, disponibilidade física.', 80000, 'aberta'),
-('Motorista de Entrega', 'Fazer entregas para clientes.', 'Carta de condução profissional.', 100000, 'aberta');
+INSERT INTO vagas (titulo, descricao, requisitos, responsabilidades, salario, status) VALUES
+('Repositor de Estoque', 'Organizar e repor mercadorias no armazém.', 'Ensino médio, disponibilidade física.', "Organizar e repor mercadorias no armazém", "Produção", "Luanda", "tempo_integral", 80000, 'aberta'),
+('Motorista de Entrega', 'Fazer entregas para clientes.', 'Carta de condução profissional.', "Fazer entregas para clientes.", "Produção", "Luanda", "tempo_integral", 100000, 'aberta');
 
 -- Tabela de candidaturas
 CREATE TABLE IF NOT EXISTS candidaturas (
