@@ -16,6 +16,10 @@ async function update(id, vaga) {
   return await vagasModel.update(id, vaga);
 }
 
+async function updateStatus(id, status) {
+  return await vagasModel.updateStatus(id, status);
+}
+
 async function deleteVaga(id) {
   return await vagasModel.deleteVaga(id);
 }
@@ -26,4 +30,5 @@ export default {
   getById,
   update,
   deleteVaga,
+  updateStatus
 };

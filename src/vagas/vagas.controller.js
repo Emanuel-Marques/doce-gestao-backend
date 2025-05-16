@@ -73,10 +73,11 @@ async function update(req, res) {
     salario,
     status,
   } = req.body;
-
+  const { id } = req.params;
+  if (!id || isNaN(id)) {
+    return res.status(400).json({ message: "ID inválido!" });
+  }
   if (
-    !vagaId ||
-    isNaN(vagaId) ||
     !titulo ||
     !descricao ||
     !requisitos ||
@@ -85,10 +86,10 @@ async function update(req, res) {
   ) {
     return res
       .status(400)
-      .json({ message: "ID ou campos obrigatórios ausentes!" });
+      .json({ message: "campos obrigatórios ausentes!" });
   }
 
-  await vagasService.update(vagaId, {
+  await vagasService.update(id, {
     titulo,
     descricao,
     requisitos,
@@ -99,6 +100,21 @@ async function update(req, res) {
     salario,
     status,
   });
+  res.status(204).json();
+}
+
+async function updateStatus(req, res) {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!id || isNaN(id)) {
+    return res.status(400).json({ message: "ID inválido!" });
+  }
+  if (!status) {
+    return res.status(400).json({ message: "Campo status ausente!" });
+  }
+
+  await vagasService.updateStatus(id, status);
   res.status(204).json();
 }
 
@@ -123,4 +139,5 @@ export default {
   getById,
   update,
   deleteVaga,
+  updateStatus
 };

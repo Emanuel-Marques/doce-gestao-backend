@@ -75,6 +75,11 @@ async function getById(vagaId) {
   return result;
 }
 
+async function updateStatus(vagaId, status) {
+  const query = `UPDATE vagas SET status = ? WHERE id = ?;`;
+  const [result] = await connection.query(query, [status, vagaId]);
+  return result;
+}
 
 
 async function deleteVaga(vagaId) {
@@ -89,4 +94,5 @@ export default {
   getById,
   update,
   deleteVaga,
+  updateStatus
 };
