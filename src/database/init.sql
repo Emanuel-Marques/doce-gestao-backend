@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS estoque (
   produto_id INT,
   quantidade INT,
   unidade VARCHAR(20),
-  minimo INT,
+  minimo INT DEFAULT 0,
   validade DATE,
-  FOREIGN KEY (produto_id) REFERENCES produtos(id)
+  FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
 );
 
 -- Inserir dados no estoque
@@ -122,3 +122,23 @@ CREATE TABLE IF NOT EXISTS candidaturas (
 INSERT INTO candidaturas (vaga_id, candidato_nome, email, telefone, experiencia, status, data_envio) VALUES
 (1, 'Pedro Silva', 'pedro@exemplo.co.ao', '923456789', '2 anos em supermercado', 'em_analise', '2024-07-02'),
 (2, 'Carlos Santos', 'carlos@exemplo.co.ao', '945678901', '3 anos em transportes', 'aprovado', '2024-07-03');
+
+CREATE TABLE IF NOT EXISTS vendas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cliente_id INT,
+  data_venda DATE NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS itens_venda (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  venda_id INT,
+  produto_id INT,
+  quantidade INT,
+  preco_unitario DECIMAL(10,2),
+  total DECIMAL(10,2),
+  FOREIGN KEY (venda_id) REFERENCES vendas(id) ON DELETE CASCADE,
+  FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
