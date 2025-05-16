@@ -16,6 +16,11 @@ async function update(id, data) {
   return await candidaturasModel.update(id, data);
 }
 
+async function updateStatus(id, status) {
+  return await candidaturasModel.updateStatus(id, status);
+}
+
+
 async function deleteCandidatura(id) {
   return await candidaturasModel.deleteCandidatura(id);
 }
@@ -26,4 +31,5 @@ export default {
   getById,
   update,
   deleteCandidatura,
+  updateStatus
 };

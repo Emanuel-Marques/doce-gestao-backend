@@ -8,6 +8,7 @@ router.use(authMiddleware);
 router.get('/', candidaturasController.getAll);
 router.get('/:candidaturaId', candidaturasController.getById);
 router.put('/actualizar/:candidaturaId', candidaturasController.update);
+router.patch('/actualizar-status/:id', candidaturasController.updateStatus);
 router.delete('/apagar/:candidaturaId', candidaturasController.deleteCandidatura);
 
 export default router;

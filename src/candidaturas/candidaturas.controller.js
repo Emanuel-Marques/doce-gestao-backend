@@ -65,6 +65,23 @@ async function update(req, res) {
   res.status(204).json();
 }
 
+async function updateStatus(req, res) {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!id || isNaN(id) || !status) {
+    return res.status(400).json({ message: "ID ou status inválido!" });
+  }
+
+  const candidatura = await candidaturasService.getById(id);
+  if (candidatura.length === 0) {
+    return res.status(404).json({ message: "Candidatura não encontrada!" });
+  }
+
+  await candidaturasService.updateStatus(id, status);
+  res.status(204).json();
+}
+
 async function deleteCandidatura(req, res) {
   const { candidaturaId } = req.params;
   if (!candidaturaId || isNaN(candidaturaId)) {
@@ -86,4 +103,5 @@ export default {
   getById,
   update,
   deleteCandidatura,
+  updateStatus
 };

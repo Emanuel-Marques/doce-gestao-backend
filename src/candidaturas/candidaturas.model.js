@@ -77,10 +77,22 @@ async function deleteCandidatura(candidaturaId) {
   return result;
 }
 
+async function updateStatus(candidaturaId, status) {
+  const query = `
+    UPDATE candidaturas
+    SET status = ?
+    WHERE id = ?;
+  `;
+  const [result] = await connection.query(query, [status, candidaturaId]);
+  return result;
+}
+
+
 export default {
   create,
   getAll,
   getById,
   update,
   deleteCandidatura,
+  updateStatus
 };
