@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS vagas (
 
 
 -- Inserir vagas
-INSERT INTO vagas (titulo, descricao, requisitos, responsabilidades, salario, status) VALUES
+INSERT INTO vagas (titulo, descricao, requisitos, responsabilidades, departamento, localidade, tipo, salario, status) VALUES
 ('Repositor de Estoque', 'Organizar e repor mercadorias no armazém.', 'Ensino médio, disponibilidade física.', "Organizar e repor mercadorias no armazém", "Produção", "Luanda", "tempo_integral", 80000, 'aberta'),
 ('Motorista de Entrega', 'Fazer entregas para clientes.', 'Carta de condução profissional.', "Fazer entregas para clientes.", "Produção", "Luanda", "tempo_integral", 100000, 'aberta');
 
